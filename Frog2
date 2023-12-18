@@ -22,5 +22,16 @@ int main(){
 	for(long long int i=0;i<n;++i){
 		cin>>h[i];
 	}
-	cout<<frog2(n-1,k,dp,h)<<endl;
+    dp[0]=0;
+    for(int i=1;i<n;i++){
+        long long int cost=INT_MAX;
+        for(long long int j=1;j<=k;++j){
+            if(i-j>=0){
+                cost=min(cost,dp[i-j]+abs(h[i]-h[i-j]));
+            }
+        }
+        dp[i]=cost;
+    }
+	//cout<<frog2(n-1,k,dp,h)<<endl;
+    cout<<dp[n-1]<<endl;
 }
