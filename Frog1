@@ -1,0 +1,41 @@
+Memoization
+
+ll fn(ll i,vector<ll> &a,vector<ll> &dp){
+    if(i==0) return 0;
+    if(dp[i]!=-1) return dp[i];
+    int jumpTwo = INT_MAX;
+    int jumpOne= fn(i-1, a,dp)+ abs(a[i]-a[i-1]);
+    if(i>1)
+        jumpTwo = fn(i-2, a,dp)+ abs(a[i]-a[i-2]);
+    
+    return dp[i]=min(jumpOne, jumpTwo);
+}
+
+
+void Frog1(){
+    ll n;
+    cin>>n;
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++) cin>>a[i];
+    vector<ll> dp(n,-1);
+    cout<<fn(n-1,a,dp);
+}
+
+
+Tabulation
+
+void Frog1(){
+    ll n;
+    cin>>n;
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++) cin>>a[i];
+    vector<ll> dp(n,-1);
+    dp[0]=0;
+    for(ll i=1;i<n;i++){
+        ll jumpTwo = INT_MAX;
+        ll jumpOne= dp[i-1]+ abs(a[i]-a[i-1]);
+        if(i>1) jumpTwo = dp[i-2]+ abs(a[i]-a[i-2]);
+        dp[i]=min(jumpOne, jumpTwo);
+    }
+    cout<<dp[n-1]<<nl;
+}
